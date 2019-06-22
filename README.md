@@ -6,7 +6,6 @@
 WebID-IODCは[Solid](https://github.com/solid/solid)などのWebIDベースの非中央集権型システム、およびほとんどのLDPベースのシステムに適した認証委任プロトコル（認証関連の検証技術の有用なツールキット）です。これは非中央集権型のOAuth2/OpenID Connectに基づいています。
 
 ## 目次
-
 * [Introduction](#introduction)
     - [Benefits and Capabilities](#benefits-and-capabilities)
     - [If You're Unfamiliar with OIDC](#if-youre-unfamiliar-with-oidc)
@@ -22,51 +21,27 @@ WebID-IODCは[Solid](https://github.com/solid/solid)などのWebIDベースの�
 * [Decentralized Authentication Glossary](#decentralized-authentication-glossary)
 
 ## はじめに
-
-WebIDベースの認証ワークフローで最終的に得られるものは、検証されたWebID URI（具体的には、受信者がエージェントがそのURIをコントロールしていることを検証したもの）です。例えば、[WebID-TLS](https://github.com/solid/solid-spec/blob/master/authn-webid-tls.md)は、TLS証明書からWebID URIを導き出し、その証明書をエージェントのWebIDプロファイル内の公開鍵と照合して検証します。同様に、[OpenID Connect (OIDC)](https://openid.net/specs/openid-connect core-1_0.html)ワークフローで最終的に得られるものは、検証済みのIDトークンです。 WebID-OIDCプロトコルは、OIDC IDトークンからWebID URIを取得するためのメカニズムを指定し、WebIDの非中央集権化された柔軟性とOpenID Connectで実証されたセキュリティの両方の利点を享受します。
+WebIDベースの認証ワークフローで最終的に得られるものは、検証されたWebID URI（具体的には、受信者がエージェントがそのURIをコントロールしていることを検証したもの）です。例えば、[WebID-TLS](https://github.com/solid/solid-spec/blob/master/authn-webid-tls.md)は、TLS証明書からWebID URIを導き出し、その証明書をエージェントのWebIDプロファイル内の公開鍵と照合して検証します。同様に、[OpenID Connect (OIDC)](https://openid.net/specs/openid-connect core-1_0.html) ワークフローで最終的に得られるものは、検証済みのIDトークンです。 WebID-OIDCプロトコルは、OIDC IDトークンからWebID URIを取得するためのメカニズムを指定し、WebIDの非中央集権化された柔軟性とOpenID Connectで実証されたセキュリティの両方の利点を享受します。
 
 参考: [Motivation for WebID-OIDC](motivation.md).
 
-### Benefits and Capabilities
+### メリットと機能
+* 完全に非中央集権化されたクロスドメイン認証（任意のピアノードは、他のノードへのRelying Partyとしてだけでなく、認証情報の提供者としても機能します）
+* 数十年にわたる実際の認証業界の経験に基づいています
+* SAML、OpenIDとOpenID 2、OAuthとOAuth 2の教訓を組み入れ、それらの脅威モデルを修正します。例えば、[RFC 6819 - OAuth 2.0 Threat Model and Security Considerations](http://tools.ietf.org/html/rfc6819)を参照してください。-- OpenID Connectの大部分は、そこに概説されている脅威に対処するために開発されました
+* 巨人（※GAFAなどの巨大なプラットフォーマー）の肩の上に立ちます（トークン表現、暗号化署名、および暗号化にJOSE標準スイート（[JWT](https://tools.ietf.org/html/rfc7519), [JWA](https://tools.ietf.org/html/rfc7518), [JWE](https://tools.ietf.org/html/rfc7516), [JWS](https://tools.ietf.org/html/rfc7515)）を使用します）
+* サインオフ（およびシングルサインオフ）機能
+* [失効](https://tools.ietf.org/html/rfc7009)機能、プロバイダとクライアントアプリの両方のブラックリスト機能とホワイトリスト機能を持つ
+* ブラウザ内のJavascriptアプリ、従来のサーバーサイドWebアプリ、モバイルおよびデスクトップアプリ、IoTデバイスなど、あらゆる種類のエージェントやクライアントの認証をサポートします
+* Solidサーバーのような既存の[Web Access Control](https://github.com/solid/web-access-control-spec)ACL実装との互換性。
+* Solidに機能的な将来性を追加するためのインフラストラクチャを設定する。
 
-* Fully decentralized cross-domain authentication (any peer node can serve as
-  an identity provider as well as a relying party to any other node)
-* Builds on decades of real-world authentication industry experience
-* Incorporates lessons from, and fixes to threat models of: SAML, OpenID and
-  OpenID 2, OAuth and OAuth 2. See, for example, [RFC 6819 - OAuth 2.0 Threat
-  Model and Security
-  Considerations](http://tools.ietf.org/html/rfc6819) -- OpenID Connect was
-  developed in large part to address the threats outlined there.
-* Stands on the shoulders of giants (makes use of the JOSE suite of standards
-  for token representation, cryptographic signing and encryption,
-  including [JWT](https://tools.ietf.org/html/rfc7519),
-  [JWA](https://tools.ietf.org/html/rfc7518),
-  [JWE](https://tools.ietf.org/html/rfc7516) and
-  [JWS](https://tools.ietf.org/html/rfc7515))
-* Sign Off (and Single Sign Off) capability
-* Capability for [revocations](https://tools.ietf.org/html/rfc7009), black
-  lists and white lists of both providers and client apps
-* Supports authentication for the full range of agents and clients: in-browser
-  Javascript apps, traditional server-side web apps, mobile and desktop apps,
-  and IoT devices.
-* Compatibility with existing [Web Access
-  Control](https://github.com/solid/web-access-control-spec) ACL implementations
-  such as those in Solid servers.
-* Sets up the infrastructure for adding Capabilities functionality to Solid
+### あなたがOIDCに慣れていない場合
+OIDC/OAuth2のワークフローに慣れていない場合は、次の手順に従ってください。:
 
-### If You're Unfamiliar with OIDC
-
-If you're not familiar with the OIDC/OAuth2 workflow, you should do the
-following:
-
- * Read the [Brief Workflow Summary](#brief-workflow-summary) section below
- * Refer to the [Decentralized Authentication
-   Glossary](#decentralized-authentication-glossary) to help clarify how the
-   various terms (Relying Party, Provider, etc) apply to WebID systems.
- * Read the [OpenID Connect
-   explained](http://connect2id.com/learn/openid-connect)
-   article. Becoming familiar with the basic OIDC concepts will be quite
-   helpful with understanding this spec.
+ * 以下の[Brief Workflow Summary](#brief-workflow-summary)のセクションを読んでください
+ * 様々な用語（Relying Party、Providerなど）の意味は[Decentralized Authentication Glossary](#decentralized-authentication-glossary)を参考にしてください
+ * [OpenID Connect explained](http://connect2id.com/learn/openid-connect)を読んでください。基本的なOIDCの概念に慣れることは、この仕様を理解する上で非常に役立ちます。
 
 ## Differences from Classic OpenID Connect
 
