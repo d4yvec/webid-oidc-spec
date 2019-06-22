@@ -1,14 +1,11 @@
-# WebID-OIDC Authentication Spec
+# WebID-OIDC認証の仕様
 [![](https://img.shields.io/badge/project-Solid-7C4DFF.svg?style=flat-square)](https://github.com/solid/solid)
 
 **Current Spec version:** `v.0.1.0` (see [CHANGELOG.md](CHANGELOG.md))
 
-WebID-OIDC is an authentication delegation protocol (as well as a toolkit of
-useful auth-related verification techniques) suitable for WebID-based
-decentralized systems such as [Solid](https://github.com/solid/solid), as well
-as most LDP-based systems. It is based on decentralized OAuth2/OpenID Connect.
+WebID-IODCは[Solid](https://github.com/solid/solid)などのWebIDベースの非中央集権型システム、およびほとんどのLDPベースのシステムに適した認証委任プロトコル（認証関連の検証技術の有用なツールキット）です。これは非中央集権型のOAuth2/OpenID Connectに基づいています。
 
-## Table of Contents
+## 目次
 
 * [Introduction](#introduction)
     - [Benefits and Capabilities](#benefits-and-capabilities)
@@ -24,21 +21,11 @@ as most LDP-based systems. It is based on decentralized OAuth2/OpenID Connect.
 * [Detailed Application Workflow Example](#detailed-application-workflow-example)
 * [Decentralized Authentication Glossary](#decentralized-authentication-glossary)
 
-## Introduction
+## はじめに
 
-The end result of any WebID-based authentication workflow is a verified WebID
-URI (specifically, the recipient verifies that the agent controls that URI).
-For example,
-[WebID-TLS](https://github.com/solid/solid-spec/blob/master/authn-webid-tls.md)
-derives the WebID URI from a TLS certificate, and verifies the certificate
-against the public key in an agent's WebID Profile. Similarly, the end result of
-[OpenID Connect (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html)
-workflows is a verified ID Token. The WebID-OIDC protocol specifies a mechanism
-for getting a WebID URI from an OIDC ID Token, and gains the benefits of both
-the decentralized flexibility of WebID, and the field-proven security of OpenID
-Connect.
+WebIDベースの認証ワークフローで最終的に得られるものは、検証されたWebID URI（具体的には、受信者がエージェントがそのURIをコントロールしていることを検証したもの）です。例えば、[WebID-TLS](https://github.com/solid/solid-spec/blob/master/authn-webid-tls.md)は、TLS証明書からWebID URIを導き出し、その証明書をエージェントのWebIDプロファイル内の公開鍵と照合して検証します。同様に、OpenID Connect（OIDC）ワークフローで最終的に得られるものは、検証済みのIDトークンです。 WebID-OIDCプロトコルは、OIDC IDトークンからWebID URIを取得するためのメカニズムを指定し、WebIDの非中央集権化された柔軟性とOpenID Connectで実証されたセキュリティの両方の利点を享受します。
 
-See also: [Motivation for WebID-OIDC](motivation.md).
+参考: [Motivation for WebID-OIDC](motivation.md).
 
 ### Benefits and Capabilities
 
