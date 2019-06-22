@@ -21,7 +21,7 @@ WebID-IODCは[Solid](https://github.com/solid/solid)などのWebIDベースの�
 * [Decentralized Authentication Glossary](#decentralized-authentication-glossary)
 
 ## はじめに
-WebIDベースの認証ワークフローで最終的に得られるものは、検証されたWebID URI（具体的には、受信者がエージェントがそのURIをコントロールしていることを検証したもの）です。例えば、[WebID-TLS](https://github.com/solid/solid-spec/blob/master/authn-webid-tls.md)は、TLS証明書からWebID URIを導き出し、その証明書をエージェントのWebIDプロファイル内の公開鍵と照合して検証します。同様に、[OpenID Connect (OIDC)](https://openid.net/specs/openid-connect core-1_0.html) ワークフローで最終的に得られるものは、検証済みのIDトークンです。 WebID-OIDCプロトコルは、OIDC IDトークンからWebID URIを取得するためのメカニズムを指定し、WebIDの非中央集権化された柔軟性とOpenID Connectで実証されたセキュリティの両方の利点を享受します。
+WebIDベースの認証ワークフローで最終的に得られるものは、検証されたWebID URI（具体的には、受信者がエージェントがそのURIをコントロールしていることを検証したもの）です。例えば、[WebID-TLS](https://github.com/solid/solid-spec/blob/master/authn-webid-tls.md)は、TLS証明書からWebID URIを導き出し、その証明書をエージェントのWebIDプロファイル内の公開鍵と照合して検証します。同様に、[OpenID Connect (OIDC)](https://openid.net/specs/openid-connectcore-1_0.html) ワークフローで最終的に得られるものは、検証済みのIDトークンです。 WebID-OIDCプロトコルは、OIDC IDトークンからWebID URIを取得するためのメカニズムを指定し、WebIDの非中央集権化された柔軟性とOpenID Connectで実証されたセキュリティの両方の利点を享受します。
 
 参考: [Motivation for WebID-OIDC](motivation.md).
 
